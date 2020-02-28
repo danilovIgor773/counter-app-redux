@@ -6,11 +6,11 @@ const initialState = {
     counter: 0
 }
 
-const reducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
     return state;
 }
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 console.log("Store is: ", store.getState());
 
