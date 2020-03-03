@@ -8,25 +8,6 @@ class Counter extends Component{
         counter: 0
     };
 
-    // counterChangedHandler = (action, value) => {
-    //     // eslint-disable-next-line default-case
-    //     switch(action){
-    //         case 'inc':
-    //             this.setState(prevState => {return {counter: prevState.counter + 1}});
-    //             break;
-    //         case 'dec':
-    //             this.setState(prevState => {return {counter: prevState.counter - 1}});
-    //             break;
-    //         case 'add':
-    //             this.setState(prevState => {return {counter: prevState.counter + value}});
-    //             break;
-    //         case 'sub':
-    //             this.setState(prevState => {return {counter: prevState.counter - value}});
-    //             break;            
-    //     }
-    // }
-
-
     render(){
         return (
             <div>
@@ -35,6 +16,13 @@ class Counter extends Component{
                 <CounterControl label="Decrement" clicked={this.props.onDecrement} />
                 <CounterControl label="Add 5" clicked={this.props.addValue} />
                 <CounterControl label="Subtract 5" clicked={this.props.subtractValue} />
+                <hr />
+                <button onClick={this.props.storeRes}>STORE RESULTS</button>
+                <ul>
+                    {this.props.storedResults.map(res => 
+                        <li key={res.id}onClick={this.props.deleteRes}>{res.value}</li>    
+                    )}                    
+                </ul>
             </div>
         )
     }
@@ -45,13 +33,16 @@ const mapDispatchToProps = dispatch => {
         onIncrement: () => dispatch({type: 'INCREMENT'}), //Here we dispatching our actions and passing them to props, to use them in a component
         onDecrement: () => dispatch({type: 'DECREMENT'}),
         addValue: () => dispatch({type: 'ADD_VALUE', value: 5}),
-        subtractValue: () => dispatch({type: 'SUBTRACT_VALUE', value: 5})
+        subtractValue: () => dispatch({type: 'SUBTRACT_VALUE', value: 5}),
+        storeRes: () => dispatch({type: 'STORE_RESULTS'}),
+        deleteRes: () => dispatch({type: 'DELETE_RESULTS'})
     }
 }
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter
+        ctr: state.counter,
+        storedResults: state.results
     }
 }; // This is so to say config for connecting the component with store in order to listen to its updates and react to user actions
 export default connect(mapStateToProps, mapDispatchToProps)(Counter); // connect is a function that returns hoc and as a first arg receives a config map obj that provides data from store 
