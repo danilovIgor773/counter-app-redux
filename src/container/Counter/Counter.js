@@ -3,6 +3,8 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import {connect} from 'react-redux';
 
+import * as actions from '../../store/actions';
+
 class Counter extends Component{
     state = {
         counter: 0
@@ -30,12 +32,12 @@ class Counter extends Component{
 
 const mapDispatchToProps = dispatch => {
     return{
-        onIncrement: () => dispatch({type: 'INCREMENT'}), //Here we dispatching our actions and passing them to props, to use them in a component
-        onDecrement: () => dispatch({type: 'DECREMENT'}),
-        addValue: () => dispatch({type: 'ADD_VALUE', value: 5}),
-        subtractValue: () => dispatch({type: 'SUBTRACT_VALUE', value: 5}),
-        storeRes: () => dispatch({type: 'STORE_RESULTS'}),
-        deleteRes: (id) => dispatch({type: 'DELETE_RESULTS', resId: id})
+        onIncrement: () => dispatch({type: actions.INCREMENT}), //Here we dispatching our actions and passing them to props, to use them in a component
+        onDecrement: () => dispatch({type: actions.DECREMENT}),
+        addValue: () => dispatch({type: actions.ADD_VALUE, value: 5}),
+        subtractValue: () => dispatch({type: actions.SUBTRACT_VALUE, value: 5}),
+        storeRes: () => dispatch({type: actions.STORE_RESULTS}),
+        deleteRes: (id) => dispatch({type: actions.DELETE_RESULTS, resId: id}) //here we pass the arg (id of element) to arrow func from our ui and then use this id as a payload
     }
 }
 
