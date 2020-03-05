@@ -19,7 +19,7 @@ class Counter extends Component{
                 <CounterControl label="Add 5" clicked={this.props.addValue} />
                 <CounterControl label="Subtract 5" clicked={this.props.subtractValue} />
                 <hr />
-                <button onClick={this.props.storeRes}>STORE RESULTS</button>
+                <button onClick={() => this.props.storeRes(this.props.ctr)}>STORE RESULTS</button>
                 <ul>
                     {this.props.storedResults.map(res => 
                         <li key={res.id}onClick={() => this.props.deleteRes(res.id)}>{res.value}</li>    
@@ -36,15 +36,15 @@ const mapDispatchToProps = dispatch => {
         onDecrement: () => dispatch({type: actions.DECREMENT}),
         addValue: () => dispatch({type: actions.ADD_VALUE, value: 5}),
         subtractValue: () => dispatch({type: actions.SUBTRACT_VALUE, value: 5}),
-        storeRes: () => dispatch({type: actions.STORE_RESULTS}),
+        storeRes: (result) => dispatch({type: actions.STORE_RESULTS, result: result}),
         deleteRes: (id) => dispatch({type: actions.DELETE_RESULTS, resId: id}) //here we pass the arg (id of element) to arrow func from our ui and then use this id as a payload
     }
 }
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter,
-        storedResults: state.results
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
     }
 }; // This is so to say config for connecting the component with store in order to listen to its updates and react to user actions
 export default connect(mapStateToProps, mapDispatchToProps)(Counter); // connect is a function that returns hoc and as a first arg receives a config map obj that provides data from store 
