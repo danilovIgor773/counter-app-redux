@@ -33,12 +33,21 @@ export const subtractValue = (value) => {
     }
 }
 
-export const storeResults = (result) => {
+export const saveResults = (result) => {
     return{
         type: STORE_RESULTS,
         result
-    }
+    }    
 }
+
+//---ASYNC OPERATIONS----
+export const storeResults = (result) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(saveResults(result))
+        }, 2000)
+    }
+} // This is async code available due to redux-thunk middleware. ACTION_DISPATCH => THUNK(MIDDLEWARE) => REDUCER => OUTPUT in CMP
 
 export const deleteResults = (resId) => {
     return {
